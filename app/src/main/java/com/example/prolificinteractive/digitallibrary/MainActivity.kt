@@ -3,9 +3,12 @@ package com.example.prolificinteractive.digitallibrary
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import com.example.prolificinteractive.digitallibrary.api.DataSource
+import com.example.prolificinteractive.digitallibrary.api.LibraryRepositoryProvider
+import com.example.prolificinteractive.digitallibrary.models.Book
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
-import okhttp3.*
-import java.io.IOException
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,28 +24,24 @@ class MainActivity : AppCompatActivity() {
 
         val adapter = LibraryViewAdapter(DataSource.getItems())
         recyclerView.adapter = adapter
-        print("Hello World!")
-        HTTPClient().run("http://prolific-interview.herokuapp.com/5b9676e767a8480009af4daa/books")
-    }
-}
+        println("Hello World!")
 
-class HTTPClient {
-
-    private val client = OkHttpClient()
-
-    @Throws(IOException::class)
-    fun run(url: String) {
-        val request = Request.Builder()
-            .url(url)
-            .build()
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                print(e)
-            }
-            override fun onResponse(call: Call, response: Response) {
-                println(response.body()?.string())
-            }
-        })
+        val repository = LibraryRepositoryProvider.provideBooksRepository()
+        repository.booksRequest()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe ({ result ->
+                val books = result.response()?.body()
+                if (books != null) {
+                    var bookViewModels = mutableListOf<BookItemViewModel>()
+                    for (book: Book in books) {
+                        bookViewModels.add(BookItemViewModel(0, book.title))
+                    }
+                    val adapter = LibraryViewAdapter(bookViewModels)
+                    recyclerView.adapter = adapter
+                }
+            }, { error ->
+                error.printStackTrace()
+            })
     }
 }

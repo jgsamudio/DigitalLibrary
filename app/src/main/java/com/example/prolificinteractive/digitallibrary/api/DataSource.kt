@@ -1,4 +1,6 @@
-package com.example.prolificinteractive.digitallibrary
+package com.example.prolificinteractive.digitallibrary.api
+
+import com.example.prolificinteractive.digitallibrary.BookItemViewModel
 
 /**
  * This class, and the module as well, is a temporary solution till storage layer is implemented,
