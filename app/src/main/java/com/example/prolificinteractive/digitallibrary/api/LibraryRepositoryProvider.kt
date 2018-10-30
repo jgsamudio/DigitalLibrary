@@ -1,6 +1,6 @@
 package com.example.prolificinteractive.digitallibrary.api
 
-object LibraryRepositoryProvider {
+class LibraryRepositoryProvider {
 
     private val apiService = LibraryApiService.create()
 

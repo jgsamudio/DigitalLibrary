@@ -5,23 +5,32 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.example.prolificinteractive.digitallibrary.api.LibraryRepositoryProvider
-import com.example.prolificinteractive.digitallibrary.models.Book
+import com.example.prolificinteractive.digitallibrary.application.DigitalLibraryApplication
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 
 class MainActivity : AppCompatActivity() {
 
+    @Inject lateinit var libraryRepositoryProvider: LibraryRepositoryProvider
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        (application as DigitalLibraryApplication).libraryComponent.inject(this)
+
         initRecyclerView()
     }
 
     private fun initRecyclerView() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         setAddBookListener()
+
+        val adapter = LibraryViewAdapter(arrayOf())
+        recyclerView.adapter = adapter
+
         loadLibrary()
     }
 
@@ -33,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadLibrary() {
-        val repository = LibraryRepositoryProvider.provideBooksRepository()
+        val repository = libraryRepositoryProvider.provideBooksRepository()
         repository.booksRequest()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
