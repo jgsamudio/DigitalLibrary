@@ -3,7 +3,7 @@ package com.example.prolificinteractive.digitallibrary
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import com.example.prolificinteractive.digitallibrary.api.DataSource
+import android.view.View
 import com.example.prolificinteractive.digitallibrary.api.LibraryRepositoryProvider
 import com.example.prolificinteractive.digitallibrary.models.Book
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -21,11 +21,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun initRecyclerView() {
         recyclerView.layoutManager = LinearLayoutManager(this)
+        setAddBookListener()
+        loadLibrary()
+    }
 
-        val adapter = LibraryViewAdapter(DataSource.getItems())
-        recyclerView.adapter = adapter
-        println("Hello World!")
+    private fun setAddBookListener() {
+        val floatingActionButton: View = findViewById(R.id.fab)
+        floatingActionButton.setOnClickListener { _ ->
+            // Route to add book activity
+        }
+    }
 
+    private fun loadLibrary() {
         val repository = LibraryRepositoryProvider.provideBooksRepository()
         repository.booksRequest()
             .observeOn(AndroidSchedulers.mainThread())
