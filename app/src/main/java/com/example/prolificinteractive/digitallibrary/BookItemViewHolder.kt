@@ -3,6 +3,7 @@ package com.example.prolificinteractive.digitallibrary
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
+import com.example.prolificinteractive.digitallibrary.models.Book
 import kotlinx.android.synthetic.main.book_item.view.*
 
 class BookItemViewHolder(bookItemView: View) : RecyclerView.ViewHolder(bookItemView) {
@@ -10,11 +11,11 @@ class BookItemViewHolder(bookItemView: View) : RecyclerView.ViewHolder(bookItemV
     private var titleView: TextView = bookItemView.book_item_title
     private var authorView: TextView = bookItemView.book_item_author
 
-    fun bind(book: BookItemViewModel) {
+    fun bind(book: Book) {
         with(itemView) {
             titleView.text = book.title
             titleView.textSize = 24.0F
-            authorView.text = "By: Jonathan Samudio"
+            authorView.text = "By: ${book.author}"
         }
     }
 

@@ -40,11 +40,7 @@ class MainActivity : AppCompatActivity() {
             .subscribe ({ result ->
                 val books = result.response()?.body()
                 if (books != null) {
-                    var bookViewModels = mutableListOf<BookItemViewModel>()
-                    for (book: Book in books) {
-                        bookViewModels.add(BookItemViewModel(0, book.title))
-                    }
-                    val adapter = LibraryViewAdapter(bookViewModels)
+                    val adapter = LibraryViewAdapter(books)
                     recyclerView.adapter = adapter
                 }
             }, { error ->

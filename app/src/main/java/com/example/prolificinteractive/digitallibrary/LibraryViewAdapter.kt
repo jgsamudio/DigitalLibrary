@@ -4,9 +4,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.prolificinteractive.digitallibrary.models.Book
 
 
-class LibraryViewAdapter(private val items: MutableList<BookItemViewModel>) : RecyclerView.Adapter<BookItemViewHolder>() {
+class LibraryViewAdapter(private val items: Array<Book>) : RecyclerView.Adapter<BookItemViewHolder>() {
 
     override fun onBindViewHolder(holder: BookItemViewHolder, position: Int) {
         holder.bind(items[position])
