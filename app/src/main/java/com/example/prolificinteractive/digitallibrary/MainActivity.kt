@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         setAddBookListener()
 
+        // Need to set the adapter first.
         val adapter = LibraryViewAdapter(arrayOf())
         recyclerView.adapter = adapter
 

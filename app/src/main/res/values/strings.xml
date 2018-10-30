@@ -6,4 +6,8 @@
     <string name="author">Author</string>
     <string name="title">Title</string>
     <string name="add_new_book">Add New Book</string>
+    <string name="add_book">Add Book</string>
+    <string name="discard_information">Discard Information</string>
+    <string name="valid_title_error">Please enter a valid title to add a book!</string>
+    <string name="valid_author_error">Please enter a valid author to add a book!</string>
 </resources>
