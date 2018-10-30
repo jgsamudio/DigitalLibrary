@@ -1,7 +1,9 @@
 package com.example.prolificinteractive.digitallibrary
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.example.prolificinteractive.digitallibrary.api.LibraryRepositoryProvider
@@ -37,7 +39,10 @@ class MainActivity : AppCompatActivity() {
     private fun setAddBookListener() {
         val floatingActionButton: View = findViewById(R.id.fab)
         floatingActionButton.setOnClickListener { _ ->
-            // Route to add book activity
+            val intent = Intent(this, AddBookActivity::class.java).apply {
+                putExtra(EXTRA_MESSAGE, "HelloWorld")
+            }
+            startActivity(intent)
         }
     }
 
