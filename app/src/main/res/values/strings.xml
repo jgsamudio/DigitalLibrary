@@ -5,4 +5,5 @@
     <string name="publisher">Publisher</string>
     <string name="author">Author</string>
     <string name="title">Title</string>
+    <string name="add_new_book">Add New Book</string>
 </resources>
