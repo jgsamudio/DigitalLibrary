@@ -86,9 +86,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun buildLibraryViewAdapter(books: Array<Book>): LibraryViewAdapter {
-        return LibraryViewAdapter(books) {
+        return LibraryViewAdapter(books) { book ->
             val intent = Intent(this, BookDetailActivity::class.java).apply {
-                putExtra(EXTRA_MESSAGE, "HelloWorld")
+                putExtra(BookDetailActivity.SELECTED_BOOK, book)
             }
             startActivityForResult(intent, BOOK_DETAIL_REQUEST_CODE)
         }
