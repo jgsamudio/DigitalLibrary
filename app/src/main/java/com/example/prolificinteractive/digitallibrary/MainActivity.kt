@@ -4,6 +4,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.AlarmClock.EXTRA_MESSAGE
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.example.prolificinteractive.digitallibrary.addBook.AddBookActivity
@@ -24,25 +25,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         (application as DigitalLibraryApplication).libraryComponent.inject(this)
-
-        initRecyclerView()
+        setupActivity()
     }
 
-    private fun initRecyclerView() {
+    private fun setupActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = LibraryViewAdapter(arrayOf())
         setAddBookListener()
-
-        // Need to set the adapter first.
-        val adapter = LibraryViewAdapter(arrayOf())
-        recyclerView.adapter = adapter
-
         loadLibrary()
         setupSwipeRefreshLayout()
     }
 
     private fun setAddBookListener() {
         val floatingActionButton: View = findViewById(R.id.fab)
-        floatingActionButton.setOnClickListener { _ ->
+        floatingActionButton.setOnClickListener {
             val intent = Intent(this, AddBookActivity::class.java).apply {
                 putExtra(EXTRA_MESSAGE, "HelloWorld")
             }
@@ -51,6 +47,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupSwipeRefreshLayout() {
+        swipe_refresh_layout.setColorSchemeColors(ContextCompat.getColor(baseContext, R.color.colorPrimary))
         swipe_refresh_layout.setOnRefreshListener {
             loadLibrary()
         }
