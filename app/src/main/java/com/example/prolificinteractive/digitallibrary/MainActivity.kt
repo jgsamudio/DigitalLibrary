@@ -28,11 +28,15 @@ class MainActivity : AppCompatActivity() {
         setupActivity()
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadLibrary()
+    }
+
     private fun setupActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = LibraryViewAdapter(arrayOf())
         setAddBookListener()
-        loadLibrary()
         setupSwipeRefreshLayout()
     }
 
@@ -54,6 +58,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadLibrary() {
+        swipe_refresh_layout.isRefreshing = true
         val repository = libraryApiServiceProvider.apiService
         repository.booksRequest()
             .observeOn(AndroidSchedulers.mainThread())
