@@ -3,6 +3,7 @@ package com.example.prolificinteractive.digitallibrary.bookDetail
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.TextView
 import com.example.prolificinteractive.digitallibrary.R
 import com.example.prolificinteractive.digitallibrary.models.Book
 
@@ -19,6 +20,14 @@ class BookDetailActivity : AppCompatActivity() {
 
         val book = intent.getSerializableExtra(SELECTED_BOOK) as Book
         title = book.title
+
+        val titleTextView = findViewById<TextView>(R.id.textView2)
+        titleTextView.text = book.title
+        titleTextView.textSize = 50.0F
+
+        val authorTextView = findViewById<TextView>(R.id.textView3)
+        authorTextView.text = book.author
+        authorTextView.textSize = 24.0F
     }
 
     private fun setupActionBar() {
