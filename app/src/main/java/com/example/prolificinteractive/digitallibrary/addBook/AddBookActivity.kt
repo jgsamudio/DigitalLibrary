@@ -1,5 +1,6 @@
 package com.example.prolificinteractive.digitallibrary.addBook
 
+import android.app.Activity
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -26,7 +27,7 @@ class AddBookActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (viewModel.noChangesMade()) {
-            onBackPressed()
+            intentFinished(false)
         } else {
             displayDiscardAlertDialog()
         }
@@ -38,7 +39,7 @@ class AddBookActivity : AppCompatActivity() {
         builder.setTitle(R.string.discard_information)
         builder.setMessage(getString(R.string.discard_information_description))
         builder.setPositiveButton(getString(R.string.discard)) { _, _ ->
-            onBackPressed()
+            intentFinished(false)
         }
         builder.setNegativeButton(getString(R.string.cancel), null)
         builder.create()?.show()
@@ -71,7 +72,7 @@ class AddBookActivity : AppCompatActivity() {
                 button.startAnimation()
                 viewModel.addBookToLibrary { success ->
                     if (success) {
-                        onBackPressed()
+                        intentFinished(true)
                     }
                 }
             } else {
@@ -79,5 +80,11 @@ class AddBookActivity : AppCompatActivity() {
                 Snackbar.make(view, viewModel.fieldsErrorText(this.baseContext), Snackbar.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun intentFinished(success: Boolean) {
+        val resultCode = if (success) Activity.RESULT_OK else Activity.RESULT_CANCELED
+        setResult(resultCode)
+        finish()
     }
 }

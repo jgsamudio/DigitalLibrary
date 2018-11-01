@@ -1,5 +1,6 @@
 package com.example.prolificinteractive.digitallibrary
 
+import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -19,6 +20,10 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        const val ADD_BOOK_REQUEST_CODE = 1
+    }
+
     @Inject
     lateinit var libraryApiServiceProvider: LibraryApiServiceProvider
 
@@ -29,9 +34,11 @@ class MainActivity : AppCompatActivity() {
         setupActivity()
     }
 
-    override fun onResume() {
-        super.onResume()
-        loadLibrary()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == ADD_BOOK_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            loadLibrary()
+        }
     }
 
     private fun setupActivity() {
@@ -39,16 +46,14 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = buildLibraryViewAdapter(arrayOf())
         setAddBookListener()
         setupSwipeRefreshLayout()
+        loadLibrary()
     }
 
     private fun setAddBookListener() {
         val floatingActionButton: View = findViewById(R.id.fab)
         floatingActionButton.setOnClickListener {
-            // Update sending information to the activity
-            val intent = Intent(this, AddBookActivity::class.java).apply {
-                putExtra(EXTRA_MESSAGE, "HelloWorld")
-            }
-            startActivity(intent)
+            val intent = Intent(this, AddBookActivity::class.java)
+            startActivityForResult(intent, ADD_BOOK_REQUEST_CODE)
         }
     }
 

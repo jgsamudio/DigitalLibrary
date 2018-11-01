@@ -15,6 +15,7 @@ class BookItemViewHolder(bookItemView: View) : RecyclerView.ViewHolder(bookItemV
         titleView.text = book.title
         titleView.textSize = 24.0F
         authorView.text = "By: ${book.author}"
+
         itemView.setOnClickListener {
             itemView.isSelected = true
             itemClickListener(book)
