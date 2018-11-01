@@ -20,7 +20,7 @@ class BookDetailActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        onBackPressed()
+        finish()
         return true
     }
 }

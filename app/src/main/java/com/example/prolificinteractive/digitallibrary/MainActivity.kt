@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val ADD_BOOK_REQUEST_CODE = 1
+        const val BOOK_DETAIL_REQUEST_CODE = 1
     }
 
     @Inject
@@ -38,6 +39,8 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == ADD_BOOK_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             loadLibrary()
+        } else {
+            recyclerView.adapter.notifyDataSetChanged()
         }
     }
 
@@ -87,7 +90,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, BookDetailActivity::class.java).apply {
                 putExtra(EXTRA_MESSAGE, "HelloWorld")
             }
-            startActivity(intent)
+            startActivityForResult(intent, BOOK_DETAIL_REQUEST_CODE)
         }
     }
 }
