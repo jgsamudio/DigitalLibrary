@@ -10,4 +10,7 @@
     <string name="discard_information">Discard Information</string>
     <string name="valid_title_error">Please enter a valid title!</string>
     <string name="valid_author_error">Please enter a valid author!</string>
+    <string name="discard_information_description">Are you sure you want to discard information?</string>
+    <string name="discard">Discard</string>
+    <string name="cancel">Cancel</string>
 </resources>

@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.prolificinteractive.digitallibrary.models.Book
 
-
-class LibraryViewAdapter(private val items: Array<Book>) : RecyclerView.Adapter<BookItemViewHolder>() {
+class LibraryViewAdapter(private val items: Array<Book>,
+                         private val itemClickListener: (Book) -> Unit) : RecyclerView.Adapter<BookItemViewHolder>() {
 
     override fun onBindViewHolder(holder: BookItemViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(items[position], itemClickListener)
     }
 
     override fun getItemCount(): Int = items.size
@@ -19,7 +19,7 @@ class LibraryViewAdapter(private val items: Array<Book>) : RecyclerView.Adapter<
         return BookItemViewHolder(parent.inflate(R.layout.book_item))
     }
 
-    fun ViewGroup.inflate(layoutRes: Int): View {
+    private fun ViewGroup.inflate(layoutRes: Int): View {
         return LayoutInflater.from(context).inflate(layoutRes, this, false)
     }
 }

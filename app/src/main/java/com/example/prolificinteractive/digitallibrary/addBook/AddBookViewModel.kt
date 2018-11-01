@@ -1,6 +1,5 @@
 package com.example.prolificinteractive.digitallibrary.addBook
 
-import android.arch.lifecycle.MutableLiveData
 import android.content.Context
 import com.example.prolificinteractive.digitallibrary.R
 import com.example.prolificinteractive.digitallibrary.api.LibraryApiServiceProvider
@@ -19,8 +18,6 @@ class AddBookViewModel: BaseViewModel() {
     var author: String = ""
     var publisher: String = ""
     var categories: String = ""
-
-    var bookAdded: MutableLiveData<Boolean> = MutableLiveData()
 
     fun noChangesMade(): Boolean {
         return title.isEmpty() && author.isEmpty() && publisher.isEmpty() && categories.isEmpty()
@@ -41,16 +38,19 @@ class AddBookViewModel: BaseViewModel() {
         }
     }
 
-    fun addBookToLibrary() {
+    fun addBookToLibrary(completion: (Boolean) -> Unit) {
+        val categoryString: String? = if (categories.isEmpty()) null else categories
+        val publisherString: String? = if (publisher.isEmpty()) null else publisher
+
         libraryApiServiceProvider.apiService
-            .addBookRequest(BookRequest(title, author))
+            .addBookRequest(BookRequest(title, author, categoryString, publisherString))
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe ({
-                bookAdded.value = true
+                completion(true)
             }, { error ->
                 error.printStackTrace()
-                bookAdded.value = false
+                completion(false)
             })
     }
 }

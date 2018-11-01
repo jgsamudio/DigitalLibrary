@@ -1,6 +1,5 @@
 package com.example.prolificinteractive.digitallibrary.addBook
 
-import android.arch.lifecycle.Observer
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -23,7 +22,6 @@ class AddBookActivity : AppCompatActivity() {
         setupActionBar()
         setupEditText()
         setupAddBookButton()
-        setupBindings()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -38,11 +36,11 @@ class AddBookActivity : AppCompatActivity() {
     private fun displayDiscardAlertDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle(R.string.discard_information)
-        builder.setMessage("Are you sure you want to discard information?")
-        builder.setPositiveButton("Discard") { _, _ ->
+        builder.setMessage(getString(R.string.discard_information_description))
+        builder.setPositiveButton(getString(R.string.discard)) { _, _ ->
             onBackPressed()
         }
-        builder.setNegativeButton("Cancel", null)
+        builder.setNegativeButton(getString(R.string.cancel), null)
         builder.create()?.show()
     }
 
@@ -71,19 +69,15 @@ class AddBookActivity : AppCompatActivity() {
         button.setOnClickListener {
             if (viewModel.fieldsValid()) {
                 button.startAnimation()
-                viewModel.addBookToLibrary()
+                viewModel.addBookToLibrary { success ->
+                    if (success) {
+                        onBackPressed()
+                    }
+                }
             } else {
                 val view = findViewById<View>(android.R.id.content)
                 Snackbar.make(view, viewModel.fieldsErrorText(this.baseContext), Snackbar.LENGTH_LONG).show()
             }
         }
-    }
-
-    private fun setupBindings() {
-        viewModel.bookAdded.observe(this, Observer<Boolean> { bookAdded ->
-            if (bookAdded == true) {
-                onBackPressed()
-            }
-        })
     }
 }

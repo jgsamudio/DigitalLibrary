@@ -10,11 +10,12 @@ import android.view.View
 import com.example.prolificinteractive.digitallibrary.addBook.AddBookActivity
 import com.example.prolificinteractive.digitallibrary.api.LibraryApiServiceProvider
 import com.example.prolificinteractive.digitallibrary.application.DigitalLibraryApplication
+import com.example.prolificinteractive.digitallibrary.bookDetail.BookDetailActivity
+import com.example.prolificinteractive.digitallibrary.models.Book
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = LibraryViewAdapter(arrayOf())
+        recyclerView.adapter = buildLibraryViewAdapter(arrayOf())
         setAddBookListener()
         setupSwipeRefreshLayout()
     }
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity() {
     private fun setAddBookListener() {
         val floatingActionButton: View = findViewById(R.id.fab)
         floatingActionButton.setOnClickListener {
+            // Update sending information to the activity
             val intent = Intent(this, AddBookActivity::class.java).apply {
                 putExtra(EXTRA_MESSAGE, "HelloWorld")
             }
@@ -66,13 +68,21 @@ class MainActivity : AppCompatActivity() {
             .subscribe ({ result ->
                 val books = result.response()?.body()
                 if (books != null) {
-                    val adapter = LibraryViewAdapter(books)
-                    recyclerView.adapter = adapter
+                    recyclerView.adapter = buildLibraryViewAdapter(books)
                 }
                 swipe_refresh_layout.isRefreshing = false
             }, { error ->
                 error.printStackTrace()
                 swipe_refresh_layout.isRefreshing = false
             })
+    }
+
+    private fun buildLibraryViewAdapter(books: Array<Book>): LibraryViewAdapter {
+        return LibraryViewAdapter(books) {
+            val intent = Intent(this, BookDetailActivity::class.java).apply {
+                putExtra(EXTRA_MESSAGE, "HelloWorld")
+            }
+            startActivity(intent)
+        }
     }
 }

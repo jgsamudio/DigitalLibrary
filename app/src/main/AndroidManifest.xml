@@ -22,7 +22,11 @@
         <activity
                 android:name=".addBook.AddBookActivity"
                 android:label="@string/add_new_book"
-                android:windowSoftInputMode="adjustResize"
+                android:theme="@style/AppTheme"
+                android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity
+                android:name=".bookDetail.BookDetailActivity"
                 android:theme="@style/AppTheme">
         </activity>
     </application>

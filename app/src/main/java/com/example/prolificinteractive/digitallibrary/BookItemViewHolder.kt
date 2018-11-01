@@ -11,12 +11,11 @@ class BookItemViewHolder(bookItemView: View) : RecyclerView.ViewHolder(bookItemV
     private var titleView: TextView = bookItemView.book_item_title
     private var authorView: TextView = bookItemView.book_item_author
 
-    fun bind(book: Book) {
-        with(itemView) {
-            titleView.text = book.title
-            titleView.textSize = 24.0F
-            authorView.text = "By: ${book.author}"
-        }
+    fun bind(book: Book, itemClickListener: (Book) -> Unit) {
+        titleView.text = book.title
+        titleView.textSize = 24.0F
+        authorView.text = "By: ${book.author}"
+        itemView.setOnClickListener { itemClickListener(book) }
     }
 
 }
