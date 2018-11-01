@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         loadLibrary()
+        setupSwipeRefreshLayout()
     }
 
     private fun setAddBookListener() {
@@ -46,6 +47,12 @@ class MainActivity : AppCompatActivity() {
                 putExtra(EXTRA_MESSAGE, "HelloWorld")
             }
             startActivity(intent)
+        }
+    }
+
+    private fun setupSwipeRefreshLayout() {
+        swipe_refresh_layout.setOnRefreshListener {
+            loadLibrary()
         }
     }
 
@@ -60,8 +67,10 @@ class MainActivity : AppCompatActivity() {
                     val adapter = LibraryViewAdapter(books)
                     recyclerView.adapter = adapter
                 }
+                swipe_refresh_layout.isRefreshing = false
             }, { error ->
                 error.printStackTrace()
+                swipe_refresh_layout.isRefreshing = false
             })
     }
 }

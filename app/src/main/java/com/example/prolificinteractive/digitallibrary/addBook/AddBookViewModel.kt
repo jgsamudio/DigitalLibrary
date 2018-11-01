@@ -42,8 +42,6 @@ class AddBookViewModel: BaseViewModel() {
     }
 
     fun addBookToLibrary() {
-        println(author)
-        println(title)
         libraryApiServiceProvider.apiService
             .addBookRequest(BookRequest(title, author))
             .observeOn(AndroidSchedulers.mainThread())
