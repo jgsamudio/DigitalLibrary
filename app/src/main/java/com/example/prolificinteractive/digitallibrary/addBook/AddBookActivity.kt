@@ -1,16 +1,16 @@
-package com.example.prolificinteractive.digitallibrary
+package com.example.prolificinteractive.digitallibrary.addBook
 
-import android.content.Context
+import android.arch.lifecycle.Observer
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+import com.example.prolificinteractive.digitallibrary.R
+import com.example.prolificinteractive.digitallibrary.extensions.onChange
 
 class AddBookActivity : AppCompatActivity() {
 
@@ -23,6 +23,7 @@ class AddBookActivity : AppCompatActivity() {
         setupActionBar()
         setupEditText()
         setupAddBookButton()
+        setupBindings()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -66,52 +67,23 @@ class AddBookActivity : AppCompatActivity() {
     }
 
     private fun setupAddBookButton() {
-        val button = findViewById<Button>(R.id.button)
+        val button = findViewById<CircularProgressButton>(R.id.button)
         button.setOnClickListener {
-            // Check if the view's fields are valid
             if (viewModel.fieldsValid()) {
-                // Make network call
-                // Close activity
+                button.startAnimation()
+                viewModel.addBookToLibrary()
             } else {
                 val view = findViewById<View>(android.R.id.content)
                 Snackbar.make(view, viewModel.fieldsErrorText(this.baseContext), Snackbar.LENGTH_LONG).show()
             }
         }
     }
-}
 
-class AddBookViewModel {
-
-    var title: String = ""
-    var author: String = ""
-    var publisher: String = ""
-    var categories: String = ""
-
-    fun noChangesMade(): Boolean {
-        return title.isEmpty() && author.isEmpty() && publisher.isEmpty() && categories.isEmpty()
+    private fun setupBindings() {
+        viewModel.bookAdded.observe(this, Observer<Boolean> { bookAdded ->
+            if (bookAdded == true) {
+                onBackPressed()
+            }
+        })
     }
-
-    fun fieldsValid(): Boolean {
-        if (!title.isEmpty() && !author.isEmpty()) {
-            return true
-        }
-        return false
-    }
-
-    fun fieldsErrorText(context: Context): String {
-        return when {
-            title.isEmpty() -> context.getString(R.string.valid_title_error)
-            author.isEmpty() -> context.getString(R.string.valid_author_error)
-            else -> ""
-        }
-    }
-
-}
-
-fun EditText.onChange(cb: (String) -> Unit) {
-    this.addTextChangedListener(object: TextWatcher {
-        override fun afterTextChanged(s: Editable?) { cb(s.toString()) }
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-    })
 }

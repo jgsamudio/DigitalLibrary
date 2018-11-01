@@ -6,7 +6,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_margin="10dp"
-              tools:context=".AddBookActivity">
+              tools:context=".addBook.AddBookActivity">
 
     <EditText
             android:layout_width="match_parent"
@@ -51,12 +51,17 @@
             android:layout_marginBottom="10dp"
             tools:ignore="Autofill"
             app:backgroundTint="@color/colorPrimary"/>
-    <Button
+
+    <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+            android:id="@+id/button"
             android:text="@string/add_book"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorSecondary"
             android:textColor="@color/colorTertiary"
-            android:id="@+id/button"/>
+            android:layout_gravity="center"
+            app:spinning_bar_width="4dp"
+            app:spinning_bar_color="#FFF"
+            app:spinning_bar_padding="6dp"/>
 
 </LinearLayout>

@@ -1,9 +1,9 @@
 package com.example.prolificinteractive.digitallibrary.application
 
 import android.app.Application
-import com.example.prolificinteractive.digitallibrary.dependencies.AppComponent
-import com.example.prolificinteractive.digitallibrary.dependencies.AppModule
-import com.example.prolificinteractive.digitallibrary.dependencies.DaggerAppComponent
+import android.arch.lifecycle.ViewModel
+import com.example.prolificinteractive.digitallibrary.addBook.AddBookViewModel
+import com.example.prolificinteractive.digitallibrary.dependencies.*
 
 @Suppress("DEPRECATION")
 class DigitalLibraryApplication: Application() {
@@ -17,5 +17,19 @@ class DigitalLibraryApplication: Application() {
 
     private fun initDagger(app: DigitalLibraryApplication): AppComponent {
         return DaggerAppComponent.builder().appModule(AppModule(app)).build()
+    }
+}
+
+open class BaseViewModel: ViewModel() {
+
+    private val injector: ViewModelInjector = DaggerViewModelInjector
+        .builder()
+        .apiModule(ApiModule())
+        .build()
+
+    init {
+        when(this) {
+            is AddBookViewModel -> injector.inject(this)
+        }
     }
 }

@@ -6,7 +6,8 @@ import android.os.Bundle
 import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
-import com.example.prolificinteractive.digitallibrary.api.LibraryRepositoryProvider
+import com.example.prolificinteractive.digitallibrary.addBook.AddBookActivity
+import com.example.prolificinteractive.digitallibrary.api.LibraryApiServiceProvider
 import com.example.prolificinteractive.digitallibrary.application.DigitalLibraryApplication
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    @Inject lateinit var libraryRepositoryProvider: LibraryRepositoryProvider
+    @Inject
+    lateinit var libraryApiServiceProvider: LibraryApiServiceProvider
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +50,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadLibrary() {
-        val repository = libraryRepositoryProvider.provideBooksRepository()
+        val repository = libraryApiServiceProvider.apiService
         repository.booksRequest()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())

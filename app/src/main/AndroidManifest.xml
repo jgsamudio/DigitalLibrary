@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".AddBookActivity"
+                android:name=".addBook.AddBookActivity"
                 android:label="@string/add_new_book"
                 android:windowSoftInputMode="adjustResize"
                 android:theme="@style/AppTheme">

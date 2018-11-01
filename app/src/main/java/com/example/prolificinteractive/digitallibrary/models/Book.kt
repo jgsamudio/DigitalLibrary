@@ -5,3 +5,6 @@ data class Book (val title: String = "",
                  val id: Int,
                  val publisher: String?,
                  val url: String)
+
+
+data class BookRequest(val title: String = "", val author: String = "")
