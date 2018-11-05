@@ -6,4 +6,5 @@ data class Book (val title: String = "",
                  val author: String = "",
                  val id: Int,
                  val publisher: String?,
+                 val categories: String?,
                  val url: String): Serializable

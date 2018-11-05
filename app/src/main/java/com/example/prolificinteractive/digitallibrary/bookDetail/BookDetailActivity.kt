@@ -29,8 +29,19 @@ class BookDetailActivity : AppCompatActivity() {
         authorTextView.text = book.author
         authorTextView.textSize = 24.0F
 
-        val publisherTextView = findViewById<TextView>(R.id.textView5)
+        val publisherTitleTextView = findViewById<TextView>(R.id.textView5)
+        publisherTitleTextView.textSize = 20.0F
+
+        val publisherTextView = findViewById<TextView>(R.id.textView6)
+        publisherTextView.text = book.publisher ?: "None"
         publisherTextView.textSize = 16.0F
+
+        val categoryTitleTextView = findViewById<TextView>(R.id.textView7)
+        categoryTitleTextView.textSize = 20.0F
+
+        val categoryTextView = findViewById<TextView>(R.id.textView8)
+        categoryTextView.text = book.categories ?: "None"
+        categoryTextView.textSize = 16.0F
     }
 
     private fun setupActionBar() {
