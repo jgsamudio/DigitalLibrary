@@ -37,6 +37,7 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
     implementation 'br.com.simplepass:loading-button-android:1.14.0'
+    implementation 'com.android.support:design:27.1.1'
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:2.3.0"
