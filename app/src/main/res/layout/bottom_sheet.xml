@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
               android:id="@+id/bottom_sheet"
               android:layout_width="match_parent"
-              android:layout_height="340dp"
-              android:background="@android:color/darker_gray"
+              android:layout_height="220dp"
+              android:background="@color/colorTertiary"
               android:orientation="vertical"
               app:behavior_hideable="false"
               app:behavior_peekHeight="80dp"
               app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
     <TextView
+            android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:background="@color/colorSecondary"
@@ -18,11 +20,33 @@
             android:text="@string/checkout"
             android:textColor="@color/colorTertiary" />
 
-    <TextView
+    <EditText
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="HELLO DETAIL"
-            android:textColor="@color/colorTertiary" />
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:hint="Name"
+            android:visibility="invisible"
+            android:ems="10"
+            android:id="@+id/editText"
+            app:backgroundTint="@color/colorPrimary"
+            tools:ignore="Autofill"/>
+
+    <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+            android:id="@+id/submit_button"
+            android:text="@string/submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/colorSecondary"
+            android:textColor="@color/colorTertiary"
+            android:layout_gravity="right"
+            app:spinning_bar_width="4dp"
+            app:spinning_bar_color="#FFF"
+            app:spinning_bar_padding="6dp"/>
+
 
 </LinearLayout>

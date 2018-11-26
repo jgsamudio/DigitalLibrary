@@ -3,6 +3,7 @@ package com.example.prolificinteractive.digitallibrary.application
 import android.app.Application
 import android.arch.lifecycle.ViewModel
 import com.example.prolificinteractive.digitallibrary.addBook.AddBookViewModel
+import com.example.prolificinteractive.digitallibrary.bookDetail.BookDetailViewModel
 import com.example.prolificinteractive.digitallibrary.dependencies.*
 
 @Suppress("DEPRECATION")
@@ -30,6 +31,7 @@ open class BaseViewModel: ViewModel() {
     init {
         when(this) {
             is AddBookViewModel -> injector.inject(this)
+            is BookDetailViewModel -> injector.inject(this)
         }
     }
 }
