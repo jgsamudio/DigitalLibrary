@@ -22,6 +22,10 @@ class MainActivity : AppCompatActivity() {
     companion object {
         const val ADD_BOOK_REQUEST_CODE = 1
         const val BOOK_DETAIL_REQUEST_CODE = 1
+
+        init {
+            System.loadLibrary("shared-library")
+        }
     }
 
     @Inject

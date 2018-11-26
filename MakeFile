@@ -1,0 +1,12 @@
+shared-library: djinni/src/run \
+   --java-out generated/java/com/example/prolificinteractive \
+   --java-package com.example.prolificinteractive \
+   --ident-java-field mFooBar \
+   --cpp-out generated/cpp \
+   --cpp-namespace shared-library \
+   --jni-out generated/jni \
+   --ident-jni-class NativeFooBar \
+   --ident-jni-file NativeFooBar \
+   --objc-out generated/objc \
+   --objcpp-out generated/objcpp \
+   --idl shared-library.djinni

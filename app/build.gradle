@@ -15,11 +15,34 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                cppFlags "-frtti -fexceptions"
+            }
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path '../CMakeLists.txt'
+        }
+    }
+    sourceSets {
+        def javaFiles = { String methodName ->
+            return [
+                    "../../generated/java",
+                    "src/$methodName/java"
+            ]
+        }
+        main {
+            java {
+                srcDirs = javaFiles "main"
+            }
         }
     }
 }

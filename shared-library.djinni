@@ -1,0 +1,3 @@
+MainViewModel = interface +c {
+    loadLibrary();
+}
