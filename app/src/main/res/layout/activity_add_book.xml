@@ -53,13 +53,14 @@
             app:backgroundTint="@color/colorPrimary"/>
 
     <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
-            android:id="@+id/button"
+            android:id="@+id/addBookButton"
             android:text="@string/add_book"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorSecondary"
+            android:layout_height="@dimen/loading_button_height"
+            android:background="@drawable/circular_border_shape"
             android:textColor="@color/colorTertiary"
             android:layout_gravity="center"
+            app:initialCornerAngle="0dp"
             app:spinning_bar_width="4dp"
             app:spinning_bar_color="#FFF"
             app:spinning_bar_padding="6dp"/>

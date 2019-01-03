@@ -18,7 +18,8 @@
             android:background="@color/colorSecondary"
             android:gravity="center"
             android:text="@string/checkout"
-            android:textColor="@color/colorTertiary" />
+            android:textColor="@color/colorTertiary"
+    />
 
     <EditText
             android:layout_width="match_parent"
@@ -33,20 +34,22 @@
             android:ems="10"
             android:id="@+id/editText"
             app:backgroundTint="@color/colorPrimary"
-            tools:ignore="Autofill"/>
+            tools:ignore="Autofill"
+    />
 
     <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
-            android:id="@+id/submit_button"
+            android:id="@+id/submitButton"
             android:text="@string/submit"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/loading_button_height"
             android:layout_margin="10dp"
-            android:backgroundTint="@color/colorSecondary"
             android:textColor="@color/colorTertiary"
             android:layout_gravity="right"
+            android:background="@drawable/circular_border_shape"
+            app:initialCornerAngle="0dp"
             app:spinning_bar_width="4dp"
             app:spinning_bar_color="#FFF"
-            app:spinning_bar_padding="6dp"/>
-
+            app:spinning_bar_padding="6dp"
+    />
 
 </LinearLayout>

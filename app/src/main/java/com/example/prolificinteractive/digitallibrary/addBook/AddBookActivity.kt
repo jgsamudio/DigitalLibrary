@@ -11,6 +11,7 @@ import android.widget.EditText
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
 import com.example.prolificinteractive.digitallibrary.R
 import com.example.prolificinteractive.digitallibrary.extensions.onChange
+import kotlinx.android.synthetic.main.activity_add_book.*
 
 class AddBookActivity : AppCompatActivity() {
 
@@ -23,6 +24,11 @@ class AddBookActivity : AppCompatActivity() {
         setupActionBar()
         setupEditText()
         setupAddBookButton()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        addBookButton.dispose()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -66,10 +72,9 @@ class AddBookActivity : AppCompatActivity() {
     }
 
     private fun setupAddBookButton() {
-        val button = findViewById<CircularProgressButton>(R.id.button)
-        button.setOnClickListener {
+        addBookButton.setOnClickListener {
             if (viewModel.fieldsValid()) {
-                button.startAnimation()
+                addBookButton.startAnimation()
                 viewModel.addBookToLibrary { success ->
                     if (success) {
                         intentFinished(true)

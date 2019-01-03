@@ -11,9 +11,8 @@ import android.support.design.widget.BottomSheetBehavior
 import android.support.design.widget.Snackbar
 import android.view.View
 import android.view.WindowManager
-import android.widget.Button
 import android.widget.EditText
-import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+import kotlinx.android.synthetic.main.bottom_sheet.*
 
 
 class BookDetailActivity : AppCompatActivity() {
@@ -64,6 +63,11 @@ class BookDetailActivity : AppCompatActivity() {
         return true
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        submitButton.dispose()
+    }
+
     private fun setupActionBar() {
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
@@ -74,7 +78,6 @@ class BookDetailActivity : AppCompatActivity() {
         val checkoutTextView = findViewById<TextView>(R.id.textView)
         val bottomSheet = findViewById<LinearLayout>(R.id.bottom_sheet)
         val checkoutEditText = findViewById<EditText>(R.id.editText)
-        val submitButton = findViewById<CircularProgressButton>(R.id.submit_button)
         val bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
 
         checkoutTextView.textSize = 16.0F
