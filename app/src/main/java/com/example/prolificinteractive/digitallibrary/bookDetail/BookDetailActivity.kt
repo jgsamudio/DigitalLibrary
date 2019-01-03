@@ -99,9 +99,15 @@ class BookDetailActivity : AppCompatActivity() {
             val name = checkoutEditText.text.toString()
             if (viewModel.isValidBorrowerName(name)) {
                 submitButton.startAnimation()
-                viewModel.checkoutBook(name) {
+                viewModel.checkoutBook(name) { success ->
                     submitButton.stopAnimation()
-                    // Close Bottom Sheet
+                    if (success) {
+                        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+                        checkoutEditText.visibility = View.INVISIBLE
+                    } else {
+                        val view = findViewById<View>(android.R.id.content)
+                        Snackbar.make(view, "Error Checking out book!", Snackbar.LENGTH_LONG).show()
+                    }
                 }
             } else {
                 val view = findViewById<View>(android.R.id.content)
